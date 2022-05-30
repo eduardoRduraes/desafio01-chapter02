@@ -1,107 +1,117 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "version": "1.0.0",
-    "title": "REST API",
-    "description": "Desafio jornada ignite chapter-02/swagger"
-  },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http"
-  ],
-  "paths": {
-    "/users/": {
-      "post": {
-        "tags":["User"],
-        "description": "Create a new User",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "Jhon Snow"
-                },
-                "email": {
-                  "example": "jhonsnow@email.com"
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "REST API",
+        "description": "Desafio jornada ignite chapter-02/swagger"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/user": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Create a new User",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "example": "Jhon Snow"
+                                },
+                                "email": {
+                                    "example": "jhonsnow@email.com"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Return user  object"
+                    },
+                    "400": {
+                        "description": "Email alread is exists"
+                    }
                 }
-              }
+            },
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "List all users if user is admin",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "header",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Return list all users"
+                    },
+                    "400": {
+                        "description": "Unauthorized user"
+                    }
+                }
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Return user  object"
-          },
-          "400": {
-            "description": "Email alread is exists"
-          }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "description": "modify user access",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User modify success"
+                    },
+                    "404": {
+                        "description": "User is not alread exists"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Show user data",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Show a user data"
+                    },
+                    "404": {
+                        "description": "User is not alread exists"
+                    }
+                }
+            }
         }
-      },
-      "get": {
-         "tags":["User"],
-        "description": "List all users if user is admin",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Return list all users"
-          },
-          "400": {
-            "description": "Unauthorized user"
-          }
-        }
-      }
-    },
-    "/users/{user_id}/admin": {
-      "patch": {
-        "description": "modify user access",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "User modify success"
-          },
-          "404": {
-            "description": "User is not alread exists"
-          }
-        }
-      }
-    },
-    "/users/{user_id}": {
-      "get": {
-        "description": "Show user data",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Show a user data"
-          },
-          "404": {
-            "description": "User is not alread exists"
-          }
-        }
-      }
     }
-  }
 }
